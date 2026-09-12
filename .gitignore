@@ -1,0 +1,34 @@
+# Папки сборки CLion/CMake
+cmake-build-debug/
+cmake-build-release/
+build/
+out/
+
+# Файлы IDE
+.idea/
+.vscode/
+*.user
+*.suo
+
+# Скомпилированные файлы
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+
+# Отладочные файлы
+*.pdb
+*.ilk
+*.idb
+
+# Файлы CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Прочее
+.DS_Store
+Thumbs.db
