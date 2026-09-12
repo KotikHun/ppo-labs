@@ -11,7 +11,7 @@ Alphabet::~Alphabet() {
 }
 
 Alphabet& Alphabet::operator=(const Alphabet& other){
-    if (his == &other){
+    if (this == &other){
         return *this;
     }
     symbols = other.symbols;
