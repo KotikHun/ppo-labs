@@ -11,12 +11,3 @@ add_executable(markov
 )
 
 target_include_directories(markov PRIVATE include)
-
-# Кодировка исходников
-add_compile_options(-Wall -Wextra)
-
-
-
-
-
-

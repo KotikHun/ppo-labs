@@ -57,14 +57,3 @@ istream& operator>>(istream& is, Alphabet& a) {
     }
     return is;
 }
-
-
-
-
-
-
-
-
-
-
-
