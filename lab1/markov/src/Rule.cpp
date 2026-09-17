@@ -77,9 +77,8 @@ istream& operator>>(istream& is, Rule& r) {
     is >> left >> arrow >> right;
 
     bool finalRule = false;
-    if (!right.empty() && right.back() == '.') {
+    if (!arrow.empty() && arrow.back() == '.') {
         finalRule = true;
-        right.pop_back();
     }
 
     r = Rule(left, right, finalRule);

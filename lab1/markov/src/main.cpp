@@ -1,24 +1,25 @@
 #include <iostream>
-#include <Alphabet.h>
 #include <windows.h>
+#include "Alphabet.h"
+#include "Rule.h"
 
 using namespace std;
 
 int main() {
-
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
-    Alphabet a;
-    a.add('x');
-    a.add('y');
-    a.add('z');
+    Rule r("aa", "b", false);
+    cout << "Правило: " << r << endl;
 
-    cout << "Алфавит: " << a << endl;
-    cout << "Размер: " << a.size() << endl;
-    cout << "Содержит 'x': " << (a.contains('x') ? "да" : "нет") << endl;
-    cout << "Содержит 'w': " << (a.contains('w') ? "да" : "нет") << endl;
+    string tape = "aab";
+    cout << "До: " << tape << endl;
+
+    if (r.isApplicable(tape)) {
+        r.apply(tape);
+    }
+
+    cout << "После: " << tape << endl;
 
     return 0;
-
 }
