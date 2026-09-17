@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDART_REQUIRED ON)
 
 add_executable(markov
-    src/main.cpp
-    src/Alphabet.cpp
         src/main.cpp
+        src/Alphabet.cpp
+        src/Rule.cpp
 )
 
 target_include_directories(markov PRIVATE include)

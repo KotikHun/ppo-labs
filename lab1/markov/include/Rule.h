@@ -24,7 +24,7 @@ public:
 
     std::string getLeft() const;
     std::string getRight() const;
-    bool isFinal() const;
+    bool getIsFinal() const;
 
     bool isApplicable(const std::string& tape) const;
 
