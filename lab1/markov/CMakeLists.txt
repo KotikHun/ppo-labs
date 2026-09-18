@@ -8,6 +8,7 @@ add_executable(markov
         src/main.cpp
         src/Alphabet.cpp
         src/Rule.cpp
+        src/MarkovAlgorithm.cpp
 )
 
 target_include_directories(markov PRIVATE include)
