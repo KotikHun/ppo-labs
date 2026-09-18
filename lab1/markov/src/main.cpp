@@ -2,6 +2,7 @@
 #include <windows.h>
 #include "Alphabet.h"
 #include "Rule.h"
+#include "MarkovAlgorithm.h"
 
 using namespace std;
 
@@ -9,17 +10,21 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
-    Rule r("aa", "b", false);
-    cout << "Правило: " << r << endl;
+    MarkovAlgorithm m;
 
-    string tape = "aab";
-    cout << "До: " << tape << endl;
+    Alphabet a;
+    a.add('a');
+    a.add('b');
+    m.setAlphabet(a);
 
-    if (r.isApplicable(tape)) {
-        r.apply(tape);
-    }
+    m.setTape("aab");
 
-    cout << "После: " << tape << endl;
+    m.addRule(Rule("aa", "b", false));
+    m.addRule(Rule("b", "a", true));
+
+    cout << "До: " << m.getTape() << endl;
+    m.run();
+    cout << "После: " << m.getTape() << endl;
 
     return 0;
 }
