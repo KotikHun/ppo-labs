@@ -36,3 +36,6 @@ Thumbs.db
 # Тестовые файлы
 lab1/markov/test.txt
 lab1/markov/saved.txt
+
+# Doxygen output
+docs/
