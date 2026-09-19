@@ -51,6 +51,6 @@ target_link_libraries(markov_tests
 option(ENABLE_COVERAGE "Enable coverage" OFF)
 
 if(ENABLE_COVERAGE)
-    target_compile_options(markov_tests PRIVATE --coverage -O0 -g)
-    target_link_options(markov_tests PRIVATE --coverage)
+    add_compile_options(--coverage -O0 -g)
+    add_link_options(--coverage)
 endif()
