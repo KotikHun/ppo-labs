@@ -1,30 +1,34 @@
 #include <iostream>
 #include <windows.h>
-#include "Alphabet.h"
-#include "Rule.h"
-#include "MarkovAlgorithm.h"
+#include "ConsoleMenu.h"
 
 using namespace std;
 
-int main() {
+int main(int argc, char* argv[]) {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
-    MarkovAlgorithm m;
+    ConsoleMenu menu;
 
-    Alphabet a;
-    a.add('a');
-    a.add('b');
-    m.setAlphabet(a);
+    string filePath;
+    bool logMode = false;
 
-    m.setTape("aab");
+    for (int i = 1; i < argc; ++i) {
+        string arg = argv[i];
+        if (arg == "-log") {
+            logMode = true;
+        } else {
+            filePath = arg;
+        }
+    }
 
-    m.addRule(Rule("aa", "b", false));
-    m.addRule(Rule("b", "a", true));
-
-    cout << "До: " << m.getTape() << endl;
-    m.run();
-    cout << "После: " << m.getTape() << endl;
+    if (!filePath.empty()) {
+        menu.loadFromFile(filePath);
+        menu.setLogMode(logMode);
+        menu.runWithLog();
+    } else {
+        menu.runInteractive();
+    }
 
     return 0;
 }

@@ -44,14 +44,15 @@ void ConsoleMenu::runWithLog() {
     cout << "Результат: " << algorithm.getTape() << endl;
 }
 
-void ConsoleMenu::loadFromFile(const string& path) {
+bool ConsoleMenu::loadFromFile(const string& path) {
     ifstream file(path);
     if (!file.is_open()) {
         cout << "Ошибка: не удалось открыть файл " << path << endl;
-        return;
+        return false;
     }
     algorithm.loadFromStream(file);
     file.close();
+    return true;
 }
 
 void ConsoleMenu::showMainMenu() const {
@@ -72,7 +73,11 @@ void ConsoleMenu::showMainMenu() const {
 
 int ConsoleMenu::readChoice() const {
     int choice = 0;
-    cin >> choice;
+    if (!(cin >> choice)) {
+        cin.clear();
+        cin.ignore(10000, '\n');
+        choice = 0;
+    }
     return choice;
 }
 
@@ -98,8 +103,10 @@ void ConsoleMenu::handleLoad() {
     cout << "Введите путь к файлу: ";
     string path;
     cin >> path;
-    loadFromFile(path);
-    cout << "Алгоритм загружен." << endl;
+
+    if (loadFromFile(path)) {
+        cout << "Алгоритм загружен." << endl;
+    }
 }
 
 void ConsoleMenu::handleSave() {

@@ -24,7 +24,7 @@ public:
 
     void runInteractive();
     void runWithLog();
-    void loadFromFile(const std::string& path);
+    bool loadFromFile(const std::string& path);
 
 private:
     void showMainMenu() const;
