@@ -62,11 +62,11 @@ bool Rule::operator!=(const Rule& other) const {
 }
 
 ostream& operator<<(ostream& os, const Rule& r) {
-    os << r.left << " -> ";
+    os << r.left << " ->";
     if (r.isFinal) {
         os << ".";
     }
-    os << r.right;
+    os << " " << r.right;
     return os;
 }
 
