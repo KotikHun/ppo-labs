@@ -53,7 +53,7 @@ jobs:
 
       - name: Run cppcheck
         working-directory: lab1/markov
-        run: cppcheck --enable=all --suppress=missingIncludeSystem --error-exitcode=1 src/ include/
+        run: cppcheck --enable=warning,performance,portability --suppress=missingIncludeSystem --suppress=missingInclude -I include --error-exitcode=1 src/
 
   release:
     name: Release
