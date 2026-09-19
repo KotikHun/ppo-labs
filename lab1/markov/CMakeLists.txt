@@ -12,16 +12,22 @@ if(ENABLE_COVERAGE)
     add_link_options(--coverage)
 endif()
 
-# ========== Основная программа ==========
-add_executable(markov
-        src/main.cpp
+# ========== Библиотека с классами ==========
+add_library(markov_lib
         src/Alphabet.cpp
         src/Rule.cpp
         src/MarkovAlgorithm.cpp
         src/ConsoleMenu.cpp
 )
 
-target_include_directories(markov PRIVATE include)
+target_include_directories(markov_lib PUBLIC include)
+
+# ========== Основная программа ==========
+add_executable(markov
+        src/main.cpp
+)
+
+target_link_libraries(markov PRIVATE markov_lib)
 
 # ========== GoogleTest ==========
 include(FetchContent)
@@ -42,15 +48,13 @@ add_executable(markov_tests
         tests/test_alphabet.cpp
         tests/test_rule.cpp
         tests/test_markov_algorithm.cpp
-        src/Alphabet.cpp
-        src/Rule.cpp
-        src/MarkovAlgorithm.cpp
 )
 
 target_include_directories(markov_tests PRIVATE include)
 
 target_link_libraries(markov_tests
         PRIVATE
+        markov_lib
         gtest
         gtest_main
 )
