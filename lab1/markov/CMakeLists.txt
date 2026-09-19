@@ -4,7 +4,7 @@ project(markov LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# ========== Покрытие ==========
+# ========== РџРѕРєСЂС‹С‚РёРµ ==========
 option(ENABLE_COVERAGE "Enable coverage" OFF)
 
 if(ENABLE_COVERAGE)
@@ -12,13 +12,13 @@ if(ENABLE_COVERAGE)
     add_link_options(--coverage)
 endif()
 
-# ========== Основная программа ==========
+# ========== РћСЃРЅРѕРІРЅР°СЏ РїСЂРѕРіСЂР°РјРјР° ==========
 add_executable(markov
-    src/main.cpp
-    src/Alphabet.cpp
-    src/Rule.cpp
-    src/MarkovAlgorithm.cpp
-    src/ConsoleMenu.cpp
+        src/main.cpp
+        src/Alphabet.cpp
+        src/Rule.cpp
+        src/MarkovAlgorithm.cpp
+        src/ConsoleMenu.cpp
 )
 
 target_include_directories(markov PRIVATE include)
@@ -27,30 +27,30 @@ target_include_directories(markov PRIVATE include)
 include(FetchContent)
 
 FetchContent_Declare(
-    googletest
-    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
-    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+        googletest
+        URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+        DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-# ========== Тесты ==========
+# ========== РўРµСЃС‚С‹ ==========
 enable_testing()
 
 add_executable(markov_tests
-    tests/test_alphabet.cpp
-    tests/test_rule.cpp
-    tests/test_markov_algorithm.cpp
-    src/Alphabet.cpp
-    src/Rule.cpp
-    src/MarkovAlgorithm.cpp
+        tests/test_alphabet.cpp
+        tests/test_rule.cpp
+        tests/test_markov_algorithm.cpp
+        src/Alphabet.cpp
+        src/Rule.cpp
+        src/MarkovAlgorithm.cpp
 )
 
 target_include_directories(markov_tests PRIVATE include)
 
 target_link_libraries(markov_tests
-    PRIVATE
-    gtest
-    gtest_main
+        PRIVATE
+        gtest
+        gtest_main
 )
