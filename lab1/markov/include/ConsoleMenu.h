@@ -22,7 +22,7 @@ public:
     void setLogMode(bool enabled);
     bool isLogMode() const;
 
-    void runInteactive();
+    void runInteractive();
     void runWithLog();
     void loadFromFile(const std::string& path);
 
