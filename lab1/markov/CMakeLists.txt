@@ -25,6 +25,7 @@ target_include_directories(markov_lib PUBLIC include)
 # ========== Основная программа ==========
 add_executable(markov
         src/main.cpp
+        ../rubik/include/Face.h
 )
 
 target_link_libraries(markov PRIVATE markov_lib)
