@@ -174,22 +174,41 @@ void Cube::rotateFace(int faceIndex, bool clockwise) {
     }
 }
 
+void Cube::loadFromStream(istream& is) {
+    for (int f = 0; f < 6; ++f) {
+        is >> faces[f];
+    }
+}
 
+void Cube::saveToStream(ostream& os) const {
+    for (int f = 0; f < 6; ++f) {
+        os << faces[f];
+    }
+}
 
+bool Cube::operator==(const Cube& other) const {
+    for (int f = 0; f < 6; ++f) {
+        if (faces[f] != other.faces[f]) {
+            return false;
+        }
+    }
+    return true;
+}
 
+bool Cube::operator!=(const Cube& other) const {
+    return !(*this == other);
+}
 
+ostream& operator<<(ostream& os, const Cube& c) {
+    for (int f = 0; f < 6; ++f) {
+        os << c.faces[f] << endl;
+    }
+    return os;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+istream& operator>>(istream& is, Cube& c) {
+    for (int f = 0; f < 6; ++f) {
+        is >> c.faces[f];
+    }
+    return is;
+}
