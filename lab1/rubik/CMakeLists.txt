@@ -15,6 +15,7 @@ endif()
 # ========== Библиотека с классами ==========
 add_library(rubik_lib
         src/Face.cpp
+        include/cube.h
 )
 
 target_include_directories(rubik_lib PUBLIC include)
