@@ -19,6 +19,12 @@ add_library(rubik_lib
         src/ConsoleMenu.cpp
 )
 
+# ========== Основная программа ==========
+add_executable(rubik
+        src/main.cpp
+)
+
+target_link_libraries(rubik PRIVATE rubik_lib)
 target_include_directories(rubik_lib PUBLIC include)
 
 # ========== GoogleTest ==========
@@ -39,7 +45,6 @@ enable_testing()
 add_executable(rubik_tests
         tests/test_face.cpp
         tests/test_cube.cpp
-        tests/test_cube.cpp
 )
 
 target_include_directories(rubik_tests PRIVATE include)
@@ -50,3 +55,4 @@ target_link_libraries(rubik_tests
         gtest
         gtest_main
 )
+
