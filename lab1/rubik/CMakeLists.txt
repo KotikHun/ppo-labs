@@ -15,7 +15,6 @@ endif()
 # ========== Библиотека с классами ==========
 add_library(rubik_lib
         src/Face.cpp
-        include/cube.h
         src/Cube.cpp
 )
 
@@ -38,6 +37,8 @@ enable_testing()
 
 add_executable(rubik_tests
         tests/test_face.cpp
+        tests/test_cube.cpp
+        tests/test_cube.cpp
 )
 
 target_include_directories(rubik_tests PRIVATE include)
