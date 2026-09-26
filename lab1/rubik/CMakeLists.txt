@@ -16,6 +16,7 @@ endif()
 add_library(rubik_lib
         src/Face.cpp
         src/Cube.cpp
+        src/ConsoleMenu.cpp
 )
 
 target_include_directories(rubik_lib PUBLIC include)
