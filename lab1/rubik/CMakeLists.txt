@@ -19,13 +19,18 @@ add_library(rubik_lib
         src/ConsoleMenu.cpp
 )
 
+target_include_directories(rubik_lib PUBLIC include)
+
 # ========== Основная программа ==========
 add_executable(rubik
         src/main.cpp
 )
 
 target_link_libraries(rubik PRIVATE rubik_lib)
-target_include_directories(rubik_lib PUBLIC include)
+
+if(WIN32 AND MINGW)
+    target_link_options(rubik PRIVATE -static-libgcc -static-libstdc++ -static)
+endif()
 
 # ========== GoogleTest ==========
 include(FetchContent)
@@ -55,4 +60,3 @@ target_link_libraries(rubik_tests
         gtest
         gtest_main
 )
-
