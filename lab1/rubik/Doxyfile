@@ -1,0 +1,39 @@
+# ===== Настройки проекта =====
+PROJECT_NAME           = "Rubik's Cube"
+PROJECT_BRIEF          =  "Кубик Рубика (лаба 1)"
+PROJECT_NUMBER         = "1.0"
+
+# ===== Входные файлы =====
+INPUT                  = include src
+RECURSIVE              = YES
+FILE_PATTERNS          = *.h *.cpp
+EXCLUDE                = tests build-coverage cmake-build-debug cmake-build-release
+EXCLUDE_PATTERNS       = */tests/*
+
+# ===== Выходные файлы =====
+OUTPUT_DIRECTORY       = docs
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+HTML_OUTPUT            = html
+
+# ===== Извлечение =====
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+HIDE_UNDOC_MEMBERS     = NO
+HIDE_UNDOC_CLASSES     = NO
+
+# ===== Предупреждения =====
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+QUIET                  = NO
+
+# ===== Кодировка =====
+DOXYFILE_ENCODING      = UTF-8
+INPUT_ENCODING         = UTF-8
+
+# ===== Прочее =====
+SOURCE_BROWSER         = YES
+INLINE_SOURCES         = NO
+GENERATE_TREEVIEW      = YES
