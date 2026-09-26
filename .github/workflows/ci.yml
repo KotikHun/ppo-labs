@@ -7,10 +7,10 @@ on:
     branches: [ main ]
 
 jobs:
-  build-and-test:
-    name: Build and Test
+  # ========== Марков ==========
+  markov-build-and-test:
+    name: Markov - Build and Test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,10 +37,9 @@ jobs:
         run: |
           gcovr --root . --filter 'src/' --exclude 'tests/' --print-summary --txt-metric line --txt
 
-  lint:
-    name: Lint
+  markov-lint:
+    name: Markov - Lint
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -52,10 +51,55 @@ jobs:
         working-directory: lab1/markov
         run: cppcheck --enable=warning,performance,portability --suppress=missingIncludeSystem --suppress=missingInclude -I include --error-exitcode=1 src/
 
+  # ========== Кубик Рубика ==========
+  rubik-build-and-test:
+    name: Rubik - Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ gcovr
+
+      - name: Configure CMake
+        working-directory: lab1/rubik
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+
+      - name: Build
+        working-directory: lab1/rubik
+        run: cmake --build build --target rubik_tests
+
+      - name: Run tests
+        working-directory: lab1/rubik
+        run: ./build/rubik_tests
+
+      - name: Generate coverage
+        working-directory: lab1/rubik
+        run: |
+          gcovr --root . --filter 'src/' --exclude 'tests/' --print-summary --txt-metric line --txt
+
+  rubik-lint:
+    name: Rubik - Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install cppcheck
+        run: sudo apt-get install -y cppcheck
+
+      - name: Run cppcheck
+        working-directory: lab1/rubik
+        run: cppcheck --enable=warning,performance,portability --suppress=missingIncludeSystem --suppress=missingInclude -I include --error-exitcode=1 src/
+
+  # ========== Релиз (при теге v*) ==========
   release:
     name: Release
     runs-on: ubuntu-latest
-    needs: [build-and-test, lint]
+    needs: [markov-build-and-test, markov-lint, rubik-build-and-test, rubik-lint]
     if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
@@ -67,23 +111,26 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake g++
 
-      - name: Configure CMake
-        working-directory: lab1/markov
-        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-
-      - name: Build
-        working-directory: lab1/markov
-        run: cmake --build build --target markov
-
-      - name: Package artifact
+      - name: Build Markov
         working-directory: lab1/markov
         run: |
-          mkdir -p artifact
-          cp build/markov artifact/
-          cp Doxyfile artifact/
-          tar -czf markov-linux.tar.gz artifact/
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target markov
+
+      - name: Build Rubik
+        working-directory: lab1/rubik
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target rubik
+
+      - name: Package artifacts
+        run: |
+          mkdir -p artifact/markov artifact/rubik
+          cp lab1/markov/build/markov artifact/markov/
+          cp lab1/rubik/build/rubik artifact/rubik/
+          tar -czf lab1-artifacts.tar.gz artifact/
 
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
-          files: lab1/markov/markov-linux.tar.gz
+          files: lab1-artifacts.tar.gz
