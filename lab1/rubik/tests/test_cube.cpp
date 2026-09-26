@@ -107,3 +107,124 @@ TEST(CubeTest, EqualityOperatorForNotEqual) {
     b.rotateFace(0, true);
     EXPECT_FALSE(a == b);
 }
+
+TEST(CubeTest, SaveAndLoadAreSymmetric) {
+    Cube original;
+    original.rotateFace(0, true);
+    original.rotateFace(2, false);
+    original.rotateFace(5, true);
+
+    std::ostringstream os;
+    original.saveToStream(os);
+
+    std::istringstream is(os.str());
+    Cube loaded;
+    loaded.loadFromStream(is);
+
+    EXPECT_TRUE(original == loaded);
+}
+
+TEST(CubeTest, OutputOperatorWorks) {
+    Cube c;
+    std::ostringstream os;
+    os << c;
+    EXPECT_FALSE(os.str().empty());
+}
+
+TEST(CubeTest, InputOperatorWorks) {
+    Cube original;
+    original.rotateFace(0, true);
+
+    std::ostringstream os;
+    os << original;
+
+    std::istringstream is(os.str());
+    Cube loaded;
+    is >> loaded;
+
+    EXPECT_TRUE(original == loaded);
+}
+
+TEST(CubeTest, UCounterClockwiseFourTimesReturnsToOriginal) {
+    Cube c;
+    Cube original = c;
+    for (int i = 0; i < 4; ++i) {
+        c.rotateFace(0, false);
+    }
+    EXPECT_TRUE(c == original);
+}
+
+TEST(CubeTest, DCounterClockwiseFourTimesReturnsToOriginal) {
+    Cube c;
+    Cube original = c;
+    for (int i = 0; i < 4; ++i) {
+        c.rotateFace(1, false);
+    }
+    EXPECT_TRUE(c == original);
+}
+
+TEST(CubeTest, LCounterClockwiseFourTimesReturnsToOriginal) {
+    Cube c;
+    Cube original = c;
+    for (int i = 0; i < 4; ++i) {
+        c.rotateFace(2, false);
+    }
+    EXPECT_TRUE(c == original);
+}
+
+TEST(CubeTest, RCounterClockwiseFourTimesReturnsToOriginal) {
+    Cube c;
+    Cube original = c;
+    for (int i = 0; i < 4; ++i) {
+        c.rotateFace(3, false);
+    }
+    EXPECT_TRUE(c == original);
+}
+
+TEST(CubeTest, FCounterClockwiseFourTimesReturnsToOriginal) {
+    Cube c;
+    Cube original = c;
+    for (int i = 0; i < 4; ++i) {
+        c.rotateFace(4, false);
+    }
+    EXPECT_TRUE(c == original);
+}
+
+TEST(CubeTest, BCounterClockwiseFourTimesReturnsToOriginal) {
+    Cube c;
+    Cube original = c;
+    for (int i = 0; i < 4; ++i) {
+        c.rotateFace(5, false);
+    }
+    EXPECT_TRUE(c == original);
+}
+
+TEST(CubeTest, GetAndSetFace) {
+    Cube c;
+    Face newFace(Color::Red);
+    c.setFace(0, newFace);
+
+    Face retrieved = c.getFace(0);
+    EXPECT_EQ(retrieved.getCell(0, 0), Color::Red);
+    EXPECT_EQ(retrieved.getCell(2, 2), Color::Red);
+}
+
+TEST(CubeTest, AssignmentOperator) {
+    Cube a;
+    a.rotateFace(0, true);
+
+    Cube b;
+    b = a;
+
+    EXPECT_TRUE(a == b);
+}
+
+TEST(CubeTest, SelfAssignment) {
+    Cube c;
+    c.rotateFace(0, true);
+    Cube original = c;
+
+    c = c;
+
+    EXPECT_TRUE(c == original);
+}
