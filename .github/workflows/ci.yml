@@ -35,7 +35,7 @@ jobs:
       - name: Generate coverage
         working-directory: lab1/markov
         run: |
-          gcovr --root . --filter 'src/' --exclude 'tests/' --print-summary --txt-metric line --txt
+           gcovr --root . --filter 'src/' --exclude 'tests/' --exclude 'src/ConsoleMenu.cpp' --print-summary --txt-metric line --txt
 
   markov-lint:
     name: Markov - Lint
