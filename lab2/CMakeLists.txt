@@ -15,6 +15,7 @@ endif()
 add_library(lab2_lib
         src/core/Date.cpp
         src/core/Money.cpp
+        src/core/Id.cpp
         # файлы добавим позже
 )
 target_include_directories(lab2_lib PUBLIC
