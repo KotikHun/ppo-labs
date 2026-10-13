@@ -14,6 +14,7 @@ endif()
 # ========== Библиотека с классами ==========
 add_library(lab2_lib
         src/core/Date.cpp
+        src/core/Money.cpp
         # файлы добавим позже
 )
 target_include_directories(lab2_lib PUBLIC
