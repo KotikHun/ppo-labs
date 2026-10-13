@@ -16,7 +16,7 @@ add_library(lab2_lib
         src/core/Date.cpp
         src/core/Money.cpp
         src/core/Id.cpp
-        # файлы добавим позже
+        src/core/Address.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
