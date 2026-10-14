@@ -17,6 +17,7 @@ add_library(lab2_lib
         src/core/Money.cpp
         src/core/Id.cpp
         src/core/Address.cpp
+        src/core/ContactInfo.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
