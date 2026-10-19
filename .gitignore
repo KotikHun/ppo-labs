@@ -47,3 +47,6 @@ docs/
 *_coverage.txt
 coverage_report.txt
 build-coverage/
+
+# Временные файлы коммитов
+commit_msg.txt
