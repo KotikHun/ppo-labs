@@ -1,0 +1,6 @@
+feat: add Guest subclasses (VipGuest, RegularGuest, CorporateGuest)
+
+- Implement public inheritance from Guest for all three subclasses.
+- Add specific fields: discountPercent for VipGuest, visitCount for RegularGuest, companyName for CorporateGuest.
+- Override toString(), equality operators, and stream operators.
+- Call base class constructors and assignment operators explicitly.

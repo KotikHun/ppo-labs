@@ -20,6 +20,9 @@ add_library(lab2_lib
         src/core/ContactInfo.cpp
         src/people/Person.cpp
         src/people/Guest.cpp
+        src/people/VipGuest.cpp
+        src/people/RegularGuest.cpp
+        src/people/CorporateGuest.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
