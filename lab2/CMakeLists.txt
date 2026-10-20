@@ -30,6 +30,13 @@ add_library(lab2_lib
         src/people/Chef.cpp
         src/people/SecurityGuard.cpp
         src/people/ContactPerson.cpp
+        src/rooms/Room.cpp
+        src/rooms/StandardRoom.cpp
+        src/rooms/LuxRoom.cpp
+        src/rooms/Apartment.cpp
+        src/rooms/SuiteRoom.cpp
+        src/rooms/Building.cpp
+        src/rooms/Floor.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
