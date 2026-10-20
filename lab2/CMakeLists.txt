@@ -23,6 +23,13 @@ add_library(lab2_lib
         src/people/VipGuest.cpp
         src/people/RegularGuest.cpp
         src/people/CorporateGuest.cpp
+        src/people/Employee.cpp
+        src/people/Manager.cpp
+        src/people/Administrator.cpp
+        src/people/Maid.cpp
+        src/people/Chef.cpp
+        src/people/SecurityGuard.cpp
+        src/people/ContactPerson.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include

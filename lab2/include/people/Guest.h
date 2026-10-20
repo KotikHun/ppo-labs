@@ -9,7 +9,7 @@
  *
  * Inherits from Person and adds passport data and loyalty points.
  */
-class Guest : public Person {
+class Guest : virtual public Person {
 protected:
     std::string passportNumber;
     int loyaltyPoints;
