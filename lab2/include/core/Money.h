@@ -35,6 +35,8 @@ public:
     bool operator!=(const Money& other) const;
     bool operator<(const Money& other) const;
     bool operator>(const Money& other) const;
+    bool operator<=(const Money& other) const;
+    bool operator>=(const Money& other) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Money& m);
     friend std::istream& operator>>(std::istream& is, Money& m);

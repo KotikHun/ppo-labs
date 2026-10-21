@@ -37,6 +37,12 @@ add_library(lab2_lib
         src/rooms/SuiteRoom.cpp
         src/rooms/Building.cpp
         src/rooms/Floor.cpp
+        src/booking/Reservation.cpp
+        src/booking/Company.cpp
+        src/booking/GuestGroup.cpp
+        src/booking/Stay.cpp
+        src/booking/CheckIn.cpp
+        src/booking/CheckOut.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include

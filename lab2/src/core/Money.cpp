@@ -77,6 +77,14 @@ bool Money::operator>(const Money& other) const {
     return other < *this;
 }
 
+bool Money::operator<=(const Money& other) const {
+    return !(other < *this);
+}
+
+bool Money::operator>=(const Money& other) const {
+    return !(*this < other);
+}
+
 ostream& operator<<(ostream& os, const Money& m) {
     os << m.toString();
     return os;
