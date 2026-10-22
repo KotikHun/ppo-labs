@@ -51,6 +51,13 @@ add_library(lab2_lib
         src/services/SpaService.cpp
         src/services/LaundryService.cpp
         src/services/ServiceOrder.cpp
+        src/payments/Payment.cpp
+        src/payments/CashPayment.cpp
+        src/payments/CardPayment.cpp
+        src/payments/OnlinePayment.cpp
+        src/payments/Invoice.cpp
+        src/payments/Tariff.cpp
+        src/payments/Discount.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
