@@ -43,6 +43,14 @@ add_library(lab2_lib
         src/booking/Stay.cpp
         src/booking/CheckIn.cpp
         src/booking/CheckOut.cpp
+        src/services/Service.cpp
+        src/services/CleaningService.cpp
+        src/services/FoodService.cpp
+        src/services/TransferService.cpp
+        src/services/ExcursionService.cpp
+        src/services/SpaService.cpp
+        src/services/LaundryService.cpp
+        src/services/ServiceOrder.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
