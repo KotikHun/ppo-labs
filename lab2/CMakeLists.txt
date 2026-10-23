@@ -58,6 +58,11 @@ add_library(lab2_lib
         src/payments/Invoice.cpp
         src/payments/Tariff.cpp
         src/payments/Discount.cpp
+        src/documents/Document.cpp
+        src/documents/Passport.cpp
+        src/documents/Visa.cpp
+        src/documents/Contract.cpp
+        src/documents/Receipt.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
