@@ -63,6 +63,11 @@ add_library(lab2_lib
         src/documents/Visa.cpp
         src/documents/Contract.cpp
         src/documents/Receipt.cpp
+        src/reviews/Rating.cpp
+        src/reviews/Comment.cpp
+        src/reviews/Review.cpp
+        src/reviews/Feedback.cpp
+        src/reviews/Complaint.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include
