@@ -77,6 +77,7 @@ add_library(lab2_lib
         src/managers/ReportManager.cpp
         src/Hotel.cpp
 )
+
 target_include_directories(lab2_lib PUBLIC
         include
         include/core
@@ -90,3 +91,28 @@ target_include_directories(lab2_lib PUBLIC
         include/exceptions
         include/managers
 )
+
+add_executable(lab2_app main.cpp)
+target_link_libraries(lab2_app PRIVATE lab2_lib)
+
+# ==========================================
+# Tests (GoogleTest)
+# ==========================================
+include(FetchContent)
+FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG release-1.12.1
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+add_executable(lab2_tests
+        tests/test_main.cpp
+        tests/test_core.cpp
+        tests/test_rooms.cpp
+        tests/test_managers.cpp
+)
+
+target_link_libraries(lab2_tests PRIVATE lab2_lib GTest::gtest_main)
