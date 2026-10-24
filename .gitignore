@@ -39,3 +39,8 @@ lab1/markov/saved.txt
 
 # Doxygen output
 docs/
+
+*.gcov
+build_cov/
+*_coverage.txt
+coverage_report.txt
