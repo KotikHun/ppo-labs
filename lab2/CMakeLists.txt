@@ -68,6 +68,13 @@ add_library(lab2_lib
         src/reviews/Review.cpp
         src/reviews/Feedback.cpp
         src/reviews/Complaint.cpp
+        src/managers/GuestManager.cpp
+        src/managers/RoomManager.cpp
+        src/managers/BookingManager.cpp
+        src/managers/ServiceManager.cpp
+        src/managers/PaymentManager.cpp
+        src/managers/StaffManager.cpp
+        src/managers/ReportManager.cpp
 )
 target_include_directories(lab2_lib PUBLIC
         include

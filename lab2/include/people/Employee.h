@@ -31,6 +31,8 @@ public:
     std::string getPosition() const;
     double getSalary() const;
 
+    Id getId() const;
+
     void setPosition(const std::string& position);
     void setSalary(double salary);
 

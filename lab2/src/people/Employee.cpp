@@ -60,6 +60,10 @@ string Employee::toString() const {
     return ss.str();
 }
 
+Id Employee::getId() const {
+    return Person::getId();
+}
+
 bool Employee::operator==(const Employee& other) const {
     return getId() == other.getId();
 }

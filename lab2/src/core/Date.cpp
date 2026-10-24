@@ -161,6 +161,14 @@ bool Date::operator>(const Date& other) const {
     return compare(other) > 0;
 }
 
+bool Date::operator<=(const Date& other) const {
+    return !(*this > other);
+}
+
+bool Date::operator>=(const Date& other) const {
+    return !(*this < other);
+}
+
 int Date::daysBetween(const Date& other) const {
     Date from = *this;
     Date to = other;
