@@ -50,3 +50,5 @@ build-coverage/
 
 # Временные файлы коммитов
 commit_msg.txt
+
+build_cov/
