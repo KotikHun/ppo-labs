@@ -108,11 +108,26 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_executable(lab2_tests
-        tests/test_main.cpp
-        tests/test_core.cpp
-        tests/test_rooms.cpp
-        tests/test_managers.cpp
+# Собираем все файлы .cpp из папки tests (включая подпапки)
+file(GLOB_RECURSE TEST_SOURCES "tests/*.cpp")
+
+add_executable(lab2_tests ${TEST_SOURCES})
+
+target_link_libraries(lab2_tests PRIVATE lab2_lib GTest::gtest_main)
+
+# Добавляем пути, чтобы в тестах работали #include "Date.h" и т.д.
+target_include_directories(lab2_tests PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/include
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/core
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/people
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/rooms
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/booking
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/services
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/payments
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/documents
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/reviews
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/managers
+        ${CMAKE_CURRENT_SOURCE_DIR}/include/exceptions
 )
 
 target_link_libraries(lab2_tests PRIVATE lab2_lib GTest::gtest_main)
