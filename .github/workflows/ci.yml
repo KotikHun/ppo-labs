@@ -139,7 +139,15 @@ jobs:
 
       - name: Run cppcheck
         working-directory: lab2
-        run: cppcheck --enable=warning,performance,portability --suppress=missingIncludeSystem --suppress=missingInclude -I include --error-exitcode=1 src/
+        run: |
+          cppcheck --enable=warning,performance,portability \
+                   --suppress=missingIncludeSystem \
+                   --suppress=missingInclude \
+                   --suppress=unusedFunction \
+                   --suppress=unmatchedSuppression \
+                   --inline-suppr \
+                   -I include \
+                   --error-exitcode=1 src/
 
   # ========== Релиз (при теге v*) ==========
   release:
