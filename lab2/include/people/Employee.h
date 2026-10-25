@@ -14,6 +14,8 @@ class Employee : virtual protected Person {
 protected:
     std::string position;
     double salary;
+    std::string department;
+    Date hireDate;
 
 public:
     Employee();
@@ -30,11 +32,15 @@ public:
 
     std::string getPosition() const;
     double getSalary() const;
+    std::string getDepartment() const;
+    Date getHireDate() const;
 
     Id getId() const;
 
     void setPosition(const std::string& position);
     void setSalary(double salary);
+    void setDepartment(const std::string& dept);
+    void setHireDate(const Date& date);
 
     std::string toString() const override;
 

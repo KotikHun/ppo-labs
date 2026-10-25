@@ -4,7 +4,7 @@
 using namespace std;
 
 Employee::Employee()
-    : Person(), position(""), salary(0.0) {
+    : Person(), position(""), salary(0.0), department("General"), hireDate() {
 }
 
 Employee::Employee(const string& firstName,
@@ -15,12 +15,13 @@ Employee::Employee(const string& firstName,
                    const string& position,
                    double salary)
     : Person(firstName, lastName, birthDate, contacts, gender),
-      position(position), salary(salary) {
+      position(position), salary(salary), department("General"), hireDate() {
 }
 
 Employee::Employee(const Employee& other)
     : Person(other),
-      position(other.position), salary(other.salary) {
+      position(other.position), salary(other.salary),
+      department(other.department), hireDate(other.hireDate) {
 }
 
 Employee& Employee::operator=(const Employee& other) {
@@ -30,27 +31,23 @@ Employee& Employee::operator=(const Employee& other) {
     Person::operator=(other);
     position = other.position;
     salary = other.salary;
+    department = other.department;
+    hireDate = other.hireDate;
     return *this;
 }
 
-Employee::~Employee() {
-}
+Employee::~Employee() {}
 
-string Employee::getPosition() const {
-    return position;
-}
+string Employee::getPosition() const { return position; }
+double Employee::getSalary() const { return salary; }
+string Employee::getDepartment() const { return department; }
+Date Employee::getHireDate() const { return hireDate; }
+Id Employee::getId() const { return Person::getId(); }
 
-double Employee::getSalary() const {
-    return salary;
-}
-
-void Employee::setPosition(const string& position) {
-    this->position = position;
-}
-
-void Employee::setSalary(double salary) {
-    this->salary = salary;
-}
+void Employee::setPosition(const string& position) { this->position = position; }
+void Employee::setSalary(double salary) { this->salary = salary; }
+void Employee::setDepartment(const string& dept) { this->department = dept; }
+void Employee::setHireDate(const Date& date) { this->hireDate = date; }
 
 string Employee::toString() const {
     stringstream ss;
@@ -60,17 +57,8 @@ string Employee::toString() const {
     return ss.str();
 }
 
-Id Employee::getId() const {
-    return Person::getId();
-}
-
-bool Employee::operator==(const Employee& other) const {
-    return getId() == other.getId();
-}
-
-bool Employee::operator!=(const Employee& other) const {
-    return !(*this == other);
-}
+bool Employee::operator==(const Employee& other) const { return Person::operator==(other); }
+bool Employee::operator!=(const Employee& other) const { return !(*this == other); }
 
 ostream& operator<<(ostream& os, const Employee& e) {
     os << e.toString();
@@ -78,7 +66,10 @@ ostream& operator<<(ostream& os, const Employee& e) {
 }
 
 istream& operator>>(istream& is, Employee& e) {
-    is >> static_cast<Person&>(e);
-    is >> e.position >> e.salary;
+    string pos;
+    double sal;
+    is >> pos >> sal;
+    e.setPosition(pos);
+    e.setSalary(sal);
     return is;
 }

@@ -23,6 +23,8 @@ protected:
     Date endDate;
     Money totalAmount;
     BookingStatus status;
+    std::string specialNotes;
+    int guestCount;
 
 public:
     Reservation();
@@ -35,8 +37,12 @@ public:
     Id getGuestId() const;
     Id getRoomId() const;
     BookingStatus getStatus() const;
+    std::string getSpecialNotes() const;
+    int getGuestCount() const;
 
     void setStatus(BookingStatus status);
+    void setSpecialNotes(const std::string& notes);
+    void setGuestCount(int count);
 
     // Реализация методов интерфейса Bookable
     Date getStartDate() const override;

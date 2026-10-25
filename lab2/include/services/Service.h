@@ -15,6 +15,8 @@ protected:
     std::string name;
     ServiceCategory category;
     Money baseCost;
+    std::string description;
+    bool isAvailable;
 
 public:
     Service();
@@ -27,14 +29,16 @@ public:
     std::string getName() const;
     ServiceCategory getCategory() const;
     Money getBaseCost() const;
+    std::string getDescription() const;
+    bool getIsAvailable() const;
 
     void setName(const std::string& name);
     void setCategory(ServiceCategory category);
     void setBaseCost(const Money& baseCost);
+    void setDescription(const std::string& desc);
+    void setIsAvailable(bool available);
 
-    // Чисто виртуальный метод
     virtual Money calculateCost() const = 0;
-
     virtual std::string toString() const;
 
     bool operator==(const Service& other) const;

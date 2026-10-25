@@ -2,6 +2,10 @@
 #include <sstream>
 using namespace std;
 
+namespace {
+constexpr double SPA_SURCHARGE_FACTOR = 1.5;
+}
+
 SpaService::SpaService() : Service(), hours(1) {}
 SpaService::SpaService(const string& name, const Money& baseCost, int hours)
     : Service(name, ServiceCategory::Spa, baseCost), hours(hours) {}
@@ -16,7 +20,7 @@ SpaService::~SpaService() {}
 int SpaService::getHours() const { return hours; }
 void SpaService::setHours(int hours) { this->hours = hours; }
 
-Money SpaService::calculateCost() const { return baseCost.multiply(hours).multiply(1.5); }
+Money SpaService::calculateCost() const { return baseCost.multiply(hours).multiply(SPA_SURCHARGE_FACTOR); }
 
 string SpaService::toString() const {
     stringstream ss;

@@ -13,6 +13,8 @@ private:
     std::string name;
     Address address;
     int floorsCount;
+    int constructionYear;
+    std::string description;
 
 public:
     Building();
@@ -25,11 +27,15 @@ public:
     std::string getName() const;
     Address getAddress() const;
     int getFloorsCount() const;
+    int getConstructionYear() const;
+    std::string getDescription() const;
 
     void setNumber(int number);
     void setName(const std::string& name);
     void setAddress(const Address& address);
     void setFloorsCount(int floorsCount);
+    void setConstructionYear(int year);
+    void setDescription(const std::string& desc);
 
     std::string toString() const;
 

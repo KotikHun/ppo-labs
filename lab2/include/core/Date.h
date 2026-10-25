@@ -28,6 +28,9 @@ public:
     int getDay() const;
     int getMonth() const;
     int getYear() const;
+    void setDay(int day);
+    void setMonth(int month);
+    void setYear(int year);
 
     bool isLeapYear() const;
     bool isValid() const;

@@ -3,7 +3,13 @@
 
 using namespace std;
 
-Rating::Rating() : score(5) {}
+namespace {
+constexpr int DEFAULT_RATING = 5;
+constexpr int MIN_RATING = 1;
+constexpr int MAX_RATING = 5;
+}
+
+Rating::Rating() : score(DEFAULT_RATING) {}
 Rating::Rating(int score) : score(score) {}
 Rating::Rating(const Rating& other) : score(other.score) {}
 
@@ -17,15 +23,14 @@ Rating::~Rating() {}
 int Rating::getScore() const { return score; }
 
 void Rating::setScore(int score) {
-    // Простая валидация: оценка от 1 до 5
-    if (score >= 1 && score <= 5) {
+    if (score >= MIN_RATING && score <= MAX_RATING) {
         this->score = score;
     }
 }
 
 string Rating::toString() const {
     stringstream ss;
-    ss << score << "/5";
+    ss << score << "/" << MAX_RATING;
     return ss.str();
 }
 

@@ -20,13 +20,15 @@ protected:
     RoomCategory category;
     RoomStatus status;
     Money basePrice;
+    double areaSquareMeters;
+    int floorNumber;
 
 public:
     Room();
     Room(int roomNumber, int capacity, RoomCategory category, RoomStatus status, const Money& basePrice);
     Room(const Room& other);
     Room& operator=(const Room& other);
-    virtual ~Room(); // Обязательно виртуальный!
+    virtual ~Room();
 
     int getRoomNumber() const;
     int getCapacity() const;
@@ -34,16 +36,18 @@ public:
     RoomStatus getStatus() const;
     Money getBasePrice() const;
     Id getId() const;
+    double getAreaSquareMeters() const;
+    int getFloorNumber() const;
 
     void setRoomNumber(int roomNumber);
     void setCapacity(int capacity);
     void setCategory(RoomCategory category);
     void setStatus(RoomStatus status);
     void setBasePrice(const Money& basePrice);
+    void setAreaSquareMeters(double area);
+    void setFloorNumber(int floor);
 
-    // ЧИСТО ВИРТУАЛЬНЫЙ МЕТОД (абстрактный класс)
     virtual Money calculatePrice() const = 0;
-
     virtual std::string toString() const;
 
     bool operator==(const Room& other) const;

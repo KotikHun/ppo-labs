@@ -4,7 +4,23 @@
 
 using namespace std;
 
-Date::Date() : day(1), month(1), year(2000) {
+namespace {
+constexpr int DEFAULT_DAY = 1;
+constexpr int DEFAULT_MONTH = 1;
+constexpr int DEFAULT_YEAR = 2000;
+constexpr int LEAP_DIVISOR_400 = 400;
+constexpr int LEAP_DIVISOR_100 = 100;
+constexpr int LEAP_DIVISOR_4 = 4;
+constexpr int MIN_MONTH = 1;
+constexpr int MAX_MONTH = 12;
+constexpr int MIN_YEAR = 1;
+constexpr int MIN_DAY = 1;
+constexpr int FEB_MONTH = 2;
+constexpr int LEAP_FEB_DAYS = 29;
+constexpr int DAYS_IN_MONTH[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+}
+
+Date::Date() : day(DEFAULT_DAY), month(DEFAULT_MONTH), year(DEFAULT_YEAR) {
 }
 
 Date::Date(int day, int month, int year)
@@ -40,29 +56,40 @@ int Date::getYear() const {
     return year;
 }
 
+void Date::setDay(int d) {
+    day = d;
+}
+
+void Date::setMonth(int m) {
+    month = m;
+}
+
+void Date::setYear(int y) {
+    year = y;
+}
+
 bool Date::isLeapYear() const {
-    if (year % 400 == 0) {
+    if (year % LEAP_DIVISOR_400 == 0) {
         return true;
     }
-    if (year % 100 == 0) {
+    if (year % LEAP_DIVISOR_100 == 0) {
         return false;
     }
-    return year % 4 == 0;
+    return year % LEAP_DIVISOR_4 == 0;
 }
 
 bool Date::isValid() const {
-    if (month < 1 || month > 12) {
+    if (month < MIN_MONTH || month > MAX_MONTH) {
         return false;
     }
-    if (year < 1) {
+    if (year < MIN_YEAR) {
         return false;
     }
-    int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int maxDay = daysInMonth[month - 1];
-    if (month == 2 && isLeapYear()) {
-        maxDay = 29;
+    int maxDay = DAYS_IN_MONTH[month - 1];
+    if (month == FEB_MONTH && isLeapYear()) {
+        maxDay = LEAP_FEB_DAYS;
     }
-    return day >= 1 && day <= maxDay;
+    return day >= MIN_DAY && day <= maxDay;
 }
 
 int Date::compare(const Date& other) const {
@@ -96,17 +123,16 @@ string Date::toString() const {
 }
 
 void Date::addOneDay() {
-    int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int maxDay = daysInMonth[month - 1];
-    if (month == 2 && isLeapYear()) {
-        maxDay = 29;
+    int maxDay = DAYS_IN_MONTH[month - 1];
+    if (month == FEB_MONTH && isLeapYear()) {
+        maxDay = LEAP_FEB_DAYS;
     }
     day++;
     if (day > maxDay) {
-        day = 1;
+        day = MIN_DAY;
         month++;
-        if (month > 12) {
-            month = 1;
+        if (month > MAX_MONTH) {
+            month = MIN_MONTH;
             year++;
         }
     }
@@ -114,16 +140,15 @@ void Date::addOneDay() {
 
 void Date::subOneDay() {
     day--;
-    if (day < 1) {
+    if (day < MIN_DAY) {
         month--;
-        if (month < 1) {
-            month = 12;
+        if (month < MIN_MONTH) {
+            month = MAX_MONTH;
             year--;
         }
-        int daysInMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        int maxDay = daysInMonth[month - 1];
-        if (month == 2 && isLeapYear()) {
-            maxDay = 29;
+        int maxDay = DAYS_IN_MONTH[month - 1];
+        if (month == FEB_MONTH && isLeapYear()) {
+            maxDay = LEAP_FEB_DAYS;
         }
         day = maxDay;
     }
@@ -200,13 +225,3 @@ istream& operator>>(istream& is, Date& d) {
     d = Date(day, month, year);
     return is;
 }
-
-
-
-
-
-
-
-
-
-

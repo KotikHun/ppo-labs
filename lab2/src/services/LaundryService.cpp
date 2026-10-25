@@ -2,6 +2,11 @@
 #include <sstream>
 using namespace std;
 
+namespace {
+constexpr int BULK_ITEMS_THRESHOLD = 10;
+constexpr double BULK_DISCOUNT_FACTOR = 0.9;
+}
+
 LaundryService::LaundryService() : Service(), itemsCount(1) {}
 LaundryService::LaundryService(const string& name, const Money& baseCost, int itemsCount)
     : Service(name, ServiceCategory::Laundry, baseCost), itemsCount(itemsCount) {}
@@ -18,7 +23,7 @@ void LaundryService::setItemsCount(int itemsCount) { this->itemsCount = itemsCou
 
 Money LaundryService::calculateCost() const {
     Money cost = baseCost.multiply(itemsCount);
-    if (itemsCount > 10) return cost.multiply(0.9);
+    if (itemsCount > BULK_ITEMS_THRESHOLD) return cost.multiply(BULK_DISCOUNT_FACTOR);
     return cost;
 }
 

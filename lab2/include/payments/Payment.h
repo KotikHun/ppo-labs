@@ -16,6 +16,7 @@ protected:
     Money amount;
     Date paymentDate;
     PaymentStatus status;
+    std::string transactionCode;
 
 public:
     Payment();
@@ -28,12 +29,12 @@ public:
     Money getAmount() const;
     Date getPaymentDate() const;
     PaymentStatus getStatus() const;
+    std::string getTransactionCode() const;
 
     void setStatus(PaymentStatus status);
+    void setTransactionCode(const std::string& code);
 
-    // Чисто виртуальный метод
     virtual bool processPayment() = 0;
-
     virtual std::string toString() const;
 
     bool operator==(const Payment& other) const;

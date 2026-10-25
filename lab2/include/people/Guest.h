@@ -13,6 +13,8 @@ class Guest : virtual public Person {
 protected:
     std::string passportNumber;
     int loyaltyPoints;
+    std::string preferredLanguage;
+    std::string notes;
 
 public:
     Guest();
@@ -28,9 +30,13 @@ public:
 
     std::string getPassportNumber() const;
     int getLoyaltyPoints() const;
+    std::string getPreferredLanguage() const;
+    std::string getNotes() const;
 
     void setPassportNumber(const std::string& passportNumber);
     void setLoyaltyPoints(int loyaltyPoints);
+    void setPreferredLanguage(const std::string& lang);
+    void setNotes(const std::string& n);
 
     void addLoyaltyPoints(int points);
 

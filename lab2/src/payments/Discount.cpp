@@ -2,6 +2,10 @@
 #include <sstream>
 using namespace std;
 
+namespace {
+constexpr double PERCENT_MAX = 100.0;
+}
+
 Discount::Discount() : description(""), percent(0) {}
 Discount::Discount(const string& description, int percent)
     : description(description), percent(percent) {}
@@ -20,7 +24,7 @@ string Discount::getDescription() const { return description; }
 int Discount::getPercent() const { return percent; }
 
 Money Discount::apply(const Money& amount) const {
-    double factor = 1.0 - (percent / 100.0);
+    double factor = 1.0 - (percent / PERCENT_MAX);
     return amount.multiply(factor);
 }
 

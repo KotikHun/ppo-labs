@@ -2,6 +2,10 @@
 #include <sstream>
 using namespace std;
 
+namespace {
+constexpr double APARTMENT_MULTIPLIER = 2.0;
+}
+
 Apartment::Apartment() : Room(), roomCount(1) {}
 Apartment::Apartment(int roomNumber, int capacity, RoomStatus status, const Money& basePrice, int roomCount)
     : Room(roomNumber, capacity, RoomCategory::Apartment, status, basePrice), roomCount(roomCount) {}
@@ -15,7 +19,7 @@ Apartment& Apartment::operator=(const Apartment& other) {
 Apartment::~Apartment() {}
 int Apartment::getRoomCount() const { return roomCount; }
 void Apartment::setRoomCount(int roomCount) { this->roomCount = roomCount; }
-Money Apartment::calculatePrice() const { return basePrice.multiply(2.0); }
+Money Apartment::calculatePrice() const { return basePrice.multiply(APARTMENT_MULTIPLIER); }
 string Apartment::toString() const {
     stringstream ss;
     ss << "Apartment{" << Room::toString() << ", rooms=" << roomCount << "}";

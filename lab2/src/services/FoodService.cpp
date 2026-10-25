@@ -2,6 +2,11 @@
 #include <sstream>
 using namespace std;
 
+namespace {
+constexpr double ROOM_SERVICE_MULTIPLIER = 1.2;
+constexpr double REGULAR_SERVICE_MULTIPLIER = 1.0;
+}
+
 FoodService::FoodService() : Service(), isRoomService(false) {}
 FoodService::FoodService(const string& name, const Money& baseCost, bool isRoomService)
     : Service(name, ServiceCategory::Food, baseCost), isRoomService(isRoomService) {}
@@ -17,8 +22,8 @@ bool FoodService::getIsRoomService() const { return isRoomService; }
 void FoodService::setIsRoomService(bool isRoomService) { this->isRoomService = isRoomService; }
 
 Money FoodService::calculateCost() const {
-    if (isRoomService) return baseCost.multiply(1.2);
-    return baseCost.multiply(1.0);
+    if (isRoomService) return baseCost.multiply(ROOM_SERVICE_MULTIPLIER);
+    return baseCost.multiply(REGULAR_SERVICE_MULTIPLIER);
 }
 
 string FoodService::toString() const {

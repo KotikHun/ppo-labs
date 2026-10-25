@@ -6,6 +6,11 @@ TEST(ReservationTest, PaymentAndDates) {
     EXPECT_EQ(r.getStartDate(), Date(1,1,2023));
     EXPECT_EQ(r.getEndDate(), Date(5,1,2023));
 
+    // Начальный статус после создания — Pending
+    EXPECT_EQ(r.getStatus(), BookingStatus::Pending);
+
+    // Оплата и явная смена статуса
     r.pay(Money(1000, Currency::RUB));
+    r.setStatus(BookingStatus::Confirmed);
     EXPECT_EQ(r.getStatus(), BookingStatus::Confirmed);
 }

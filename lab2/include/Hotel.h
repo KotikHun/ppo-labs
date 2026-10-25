@@ -8,6 +8,7 @@
 #include "PaymentManager.h"
 #include "StaffManager.h"
 #include "ReportManager.h"
+#include <string>
 
 /**
  * @brief Facade class representing the whole hotel.
@@ -23,6 +24,10 @@ private:
     PaymentManager paymentMgr;
     StaffManager staffMgr;
     ReportManager reportMgr;
+    std::string hotelName;
+    int starRating;
+    std::string contactPhone;
+    std::string contactEmail;
 
 public:
     Hotel();
@@ -39,4 +44,13 @@ public:
     PaymentManager& getPaymentManager();
     StaffManager& getStaffManager();
     ReportManager& getReportManager();
+
+    std::string getHotelName() const;
+    void setHotelName(const std::string& name);
+    int getStarRating() const;
+    void setStarRating(int rating);
+    std::string getContactPhone() const;
+    void setContactPhone(const std::string& phone);
+    std::string getContactEmail() const;
+    void setContactEmail(const std::string& email);
 };

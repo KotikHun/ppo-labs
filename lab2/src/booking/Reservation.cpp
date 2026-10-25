@@ -4,17 +4,20 @@
 using namespace std;
 
 Reservation::Reservation()
-    : startDate(), endDate(), totalAmount(), status(BookingStatus::Pending) {
+    : startDate(), endDate(), totalAmount(), status(BookingStatus::Pending),
+      specialNotes(""), guestCount(1) {
 }
 
 Reservation::Reservation(const Id& guestId, const Id& roomId, const Date& startDate, const Date& endDate, const Money& totalAmount)
-    : guestId(guestId), roomId(roomId), startDate(startDate), endDate(endDate), totalAmount(totalAmount), status(BookingStatus::Pending) {
+    : guestId(guestId), roomId(roomId), startDate(startDate), endDate(endDate), totalAmount(totalAmount),
+      status(BookingStatus::Pending), specialNotes(""), guestCount(1) {
 }
 
 Reservation::Reservation(const Reservation& other)
     : id(other.id), guestId(other.guestId), roomId(other.roomId),
       startDate(other.startDate), endDate(other.endDate),
-      totalAmount(other.totalAmount), status(other.status) {
+      totalAmount(other.totalAmount), status(other.status),
+      specialNotes(other.specialNotes), guestCount(other.guestCount) {
 }
 
 Reservation& Reservation::operator=(const Reservation& other) {
@@ -28,30 +31,29 @@ Reservation& Reservation::operator=(const Reservation& other) {
     endDate = other.endDate;
     totalAmount = other.totalAmount;
     status = other.status;
+    specialNotes = other.specialNotes;
+    guestCount = other.guestCount;
     return *this;
 }
 
-Reservation::~Reservation() {
-}
+Reservation::~Reservation() {}
 
 Id Reservation::getId() const { return id; }
 Id Reservation::getGuestId() const { return guestId; }
 Id Reservation::getRoomId() const { return roomId; }
 BookingStatus Reservation::getStatus() const { return status; }
+string Reservation::getSpecialNotes() const { return specialNotes; }
+int Reservation::getGuestCount() const { return guestCount; }
 
 void Reservation::setStatus(BookingStatus status) { this->status = status; }
+void Reservation::setSpecialNotes(const string& notes) { this->specialNotes = notes; }
+void Reservation::setGuestCount(int count) { this->guestCount = count; }
 
-// Реализация Bookable
 Date Reservation::getStartDate() const { return startDate; }
 Date Reservation::getEndDate() const { return endDate; }
-
-// Реализация Payable
 Money Reservation::getTotalAmount() const { return totalAmount; }
 void Reservation::pay(const Money& amount) {
-    // В простейшем случае: если оплатили достаточно, меняем статус на Confirmed
-    if (amount >= totalAmount) {
-        status = BookingStatus::Confirmed;
-    }
+    totalAmount = totalAmount.subtract(amount);
 }
 
 string Reservation::toString() const {
@@ -64,13 +66,8 @@ string Reservation::toString() const {
     return ss.str();
 }
 
-bool Reservation::operator==(const Reservation& other) const {
-    return id == other.id;
-}
-
-bool Reservation::operator!=(const Reservation& other) const {
-    return !(*this == other);
-}
+bool Reservation::operator==(const Reservation& other) const { return id == other.id; }
+bool Reservation::operator!=(const Reservation& other) const { return !(*this == other); }
 
 ostream& operator<<(ostream& os, const Reservation& r) {
     os << r.toString();
@@ -78,6 +75,7 @@ ostream& operator<<(ostream& os, const Reservation& r) {
 }
 
 istream& operator>>(istream& is, Reservation& r) {
-    // Для простоты пока не реализуем полный ввод, так как много полей Id и Date
+    int gId, rId;
+    is >> gId >> rId;
     return is;
 }
