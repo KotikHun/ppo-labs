@@ -40,7 +40,24 @@ lab1/markov/saved.txt
 # Doxygen output
 docs/
 
+# Coverage files
 *.gcov
-build_cov/
+*.gcda
+*.gcno
 *_coverage.txt
 coverage_report.txt
+build-coverage/
+
+# Временные файлы коммитов
+commit_msg.txt
+
+build_cov/
+lab2/build*/
+lab2/html/
+lab2/latex/
+*.bak
+
+lab2/build*/
+lab2/html/
+lab2/latex/
+*.bak
