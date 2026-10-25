@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ main, lab1 ]
+    branches: [ main, lab1, lab2 ]
+    tags:
+      - 'v*'
   pull_request:
     branches: [ main ]
 
@@ -35,7 +37,7 @@ jobs:
       - name: Generate coverage
         working-directory: lab1/markov
         run: |
-           gcovr --root . --filter 'src/' --exclude 'tests/' --exclude 'src/ConsoleMenu.cpp' --fail-under=90 --print-summary --txt-metric line --txt
+          gcovr --root . --filter 'src/' --exclude 'tests/' --exclude 'src/ConsoleMenu.cpp' --fail-under=90 --print-summary --txt-metric line --txt
 
   markov-lint:
     name: Markov - Lint
@@ -95,11 +97,61 @@ jobs:
         working-directory: lab1/rubik
         run: cppcheck --enable=warning,performance,portability --suppress=missingIncludeSystem --suppress=missingInclude -I include --error-exitcode=1 src/
 
+  # ========== Лаба 2 (Hotel System) ==========
+  hotel-build-and-test:
+    name: Hotel System - Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake g++ gcovr doxygen
+
+      - name: Configure CMake
+        working-directory: lab2
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DENABLE_COVERAGE=ON
+
+      - name: Build tests
+        working-directory: lab2
+        run: cmake --build build --target lab2_tests --parallel
+
+      - name: Run tests
+        working-directory: lab2
+        run: ./build/lab2_tests
+
+      - name: Generate coverage (src/ only, fails if < 90%)
+        working-directory: lab2
+        run: |
+          gcovr --root . --filter 'src/' --exclude 'tests/' --fail-under=90 --print-summary --txt-metric line --txt
+
+  hotel-lint:
+    name: Hotel System - Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install cppcheck
+        run: sudo apt-get install -y cppcheck
+
+      - name: Run cppcheck
+        working-directory: lab2
+        run: cppcheck --enable=warning,performance,portability --suppress=missingIncludeSystem --suppress=missingInclude -I include --error-exitcode=1 src/
+
   # ========== Релиз (при теге v*) ==========
   release:
     name: Release
     runs-on: ubuntu-latest
-    needs: [markov-build-and-test, markov-lint, rubik-build-and-test, rubik-lint]
+    needs: 
+      - markov-build-and-test
+      - markov-lint
+      - rubik-build-and-test
+      - rubik-lint
+      - hotel-build-and-test
+      - hotel-lint
     if: startsWith(github.ref, 'refs/tags/v')
 
     steps:
@@ -109,8 +161,9 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake g++
+          sudo apt-get install -y cmake g++ zip
 
+      # Сборка лабы 1 в Release
       - name: Build Markov
         working-directory: lab1/markov
         run: |
@@ -123,14 +176,30 @@ jobs:
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
           cmake --build build --target rubik
 
+      # Сборка лабы 2 в Release (только чистое приложение)
+      - name: Build Hotel System
+        working-directory: lab2
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --target lab2_app
+
+      # Упаковка продуктов без тестов
       - name: Package artifacts
         run: |
+          # Артефакты лабы 1
           mkdir -p artifact/markov artifact/rubik
           cp lab1/markov/build/markov artifact/markov/
           cp lab1/rubik/build/rubik artifact/rubik/
           tar -czf lab1-artifacts.tar.gz artifact/
 
+          # Чистый архив лабы 2 (только бинарник продукта)
+          mkdir -p hotel_release
+          cp lab2/build/lab2_app hotel_release/hotel_system
+          zip -j hotel-system-v2.0-linux.zip hotel_release/*
+
       - name: Upload to Release
         uses: softprops/action-gh-release@v1
         with:
-          files: lab1-artifacts.tar.gz
+          files: |
+            lab1-artifacts.tar.gz
+            hotel-system-v2.0-linux.zip

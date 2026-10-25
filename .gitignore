@@ -52,3 +52,12 @@ build-coverage/
 commit_msg.txt
 
 build_cov/
+lab2/build*/
+lab2/html/
+lab2/latex/
+*.bak
+
+lab2/build*/
+lab2/html/
+lab2/latex/
+*.bak
