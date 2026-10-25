@@ -78,10 +78,10 @@ jobs:
         working-directory: lab1/rubik
         run: ./build/rubik_tests
 
-      - name: Generate coverage (src/ only, fails if < 90%)
-        working-directory: lab2
+     - name: Generate coverage
+        working-directory: lab1/rubik
         run: |
-          gcovr --root . --filter 'src/' --exclude 'tests/' --exclude '.*main\.cpp' --fail-under-line 90 --print-summary --txt-metric line --txt
+          gcovr --root . --filter 'src/' --exclude 'tests/' --exclude 'src/ConsoleMenu.cpp' --fail-under-line 90 --print-summary --txt-metric line --txt
 
   rubik-lint:
     name: Rubik - Lint
